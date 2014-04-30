@@ -91,9 +91,10 @@ public class MyDiscoveryListener implements DiscoveryListener{
             name = btDevice.getBluetoothAddress();
         }
         
+        int a=1;
         devices.add(btDevice);
-        System.out.println("device found: " + name);
-        
+        System.out.println(a+"device found: " + name);
+        a++;
     }
 
     @Override
@@ -112,16 +113,32 @@ public class MyDiscoveryListener implements DiscoveryListener{
 
     @Override
     public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
-        for (int i = 0; i < servRecord.length; i++) {
-            String url = servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
-            if (url == null) {
-                continue;
-            }
+       // for (int i = 0; i < servRecord.length; i++) {
+          //  String url = servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
+          //  if (url == null) {
+            //    continue;
+          //  }
+          
+          
+          
+          int i=0;
+    	System.out.println("enter the device number \n");
+    	BufferedReader br = new BufferedReader( new InputStreamReader(System.in));
+    	try {
+			String s = br.readLine();
+            i = Integer.parseInt(s);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+          
+          
             DataElement serviceName = servRecord[i].getAttributeValue(0x0100);
             if (serviceName != null) {
                 System.out.println("service " + serviceName.getValue() + " found " + url);
                 
-                if(serviceName.getValue().equals("OBEX Object Push")){
+                //if(serviceName.getValue().equals("OBEX Object Push")){
+                   if(true){
                     sendMessageToDevice(url);                
                 }
             } else {
@@ -129,7 +146,7 @@ public class MyDiscoveryListener implements DiscoveryListener{
             }
             
           
-        }
+       // }
     }
     
     private static void sendMessageToDevice(String serverURL){
