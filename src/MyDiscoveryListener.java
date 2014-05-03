@@ -135,7 +135,7 @@ public class MyDiscoveryListener implements DiscoveryListener{
 			e.printStackTrace();
 		} 
           
-          
+          String url = servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
             DataElement serviceName = servRecord[i].getAttributeValue(0x0100);
             if (serviceName != null) {
                 System.out.println("service " + serviceName.getValue() + " found " + url);
